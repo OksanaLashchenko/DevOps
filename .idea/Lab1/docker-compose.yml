@@ -1,0 +1,15 @@
+version: '3'
+services:
+  web-server:
+    image: nginx
+    ports:
+      - 80:80
+
+  script-runner:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./script.sh:/script.sh
+      - ./cron_schedule:/etc/cron.d/my-cron
+    command: bash -c "cron && tail -f /var/log/cron.log"
