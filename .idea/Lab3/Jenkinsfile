@@ -1,0 +1,19 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Clone repository') {
+            steps {
+                git 'https://github.com/OksanaLashchenko/DevOps/tree/main/.idea/Lab1'
+            }
+        }
+
+        stage('Build Docker image') {
+            steps {
+                script {
+                    def dockerImage = docker.build('my-docker-image', '-f .idea/Lab1/Dockerfile .')
+                }
+            }
+        }
+    }
+}
